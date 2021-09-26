@@ -27,16 +27,16 @@ def get_shop_list_by_dishes(cook_book, dishes, person_count):
         dishes = [dishes]
     for dish in dishes:
         for ingredient in cook_book[dish]:
-            name, measure, quantity = ingredient
+            name = ingredient['ingredient_name']
             if name in shop_list.keys():
-                shop_list[name]['quantity'] += quantity * person_count
+                shop_list[name]['quantity'] += ingredient['quantity'] * person_count
             else:
-                shop_list[name] = {'measure': measure,
-                                   'quantity': quantity * person_count
+                shop_list[name] = {'measure': ingredient['measure'],
+                                   'quantity': ingredient['quantity'] * person_count
                                    }
     return shop_list
 
 cook_book = get_cook_book('cook_book.txt')
 
-# pprint(cook_book)
-pprint(get_shop_list_by_dishes(cook_book, 'Омлет', 2))
+pprint(cook_book)
+pprint(get_shop_list_by_dishes(cook_book, ['Омлет', 'Фахитос'], 3))
